@@ -8,6 +8,7 @@ exports.getInventory = async (req, res) => {
     if (!inventory || !inventory.length ) {
       return res.status(404).send({ message: 'No inventory found' });
     }
+    res.header("Access-Control-Allow-Origin", "*");
     res.status(200).send(inventory);
   } 
   catch (err) {

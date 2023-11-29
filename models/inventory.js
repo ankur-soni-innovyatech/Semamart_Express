@@ -7,7 +7,7 @@ const InventorySchema = new mongoose.Schema({
     oem: { type: String, required: true },
     specification: { type: String},
     totalQuantity: { type: Number },
-    totalSoldQuantity: { type: Number, default: 0 },
+    totalConsumedQuantity: { type: Number, default: 0 },
     totalAvailableQuantity: { type: Number }
 });
 

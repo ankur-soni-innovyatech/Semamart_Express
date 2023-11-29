@@ -4,7 +4,7 @@ exports.getProducts = async (req, res) => {
   try {
   const { brand, category, hsnCode } = req.query;
 
-    const products = await Product.find({
+    /* const products = await Product.find({
       brand: brand,
       category: category,
       hsnCode: hsnCode
@@ -13,7 +13,12 @@ exports.getProducts = async (req, res) => {
     if (!products || !products.length ) {
       return res.status(404).send({ message: 'No products found' });
     }
-    res.status(200).send(products);
+    res.status(200).send(products); */
+
+    const products = await Product.find({})
+    res.header("Access-Control-Allow-Origin", "*");
+    res.status(200)
+    res.json(products)
   } 
   catch (err) {
     res.status(500).send(err);
