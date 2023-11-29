@@ -1,14 +1,15 @@
 const User = require('../models/user');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+var transporter = require('../mailSender');
 
-let transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'ankursoni2974@gmail.com',
-    pass: 'tgpoldqrmznkerai'
-  }
-});
+// let transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'ankursoni2974@gmail.com',
+//     pass: 'tgpoldqrmznkerai'
+//   }
+// });
 
 const otps = {};
 
@@ -32,9 +33,9 @@ exports.register = async (req, res) => {
   
     // Send OTP to user's email
     let info = await transporter.sendMail({
-      from: '"Ankur" <ankursoni2974@gmail.com>', // sender address
+      from: '"Ankur" <${process.env.SENDER_EMAIL}>', // sender address
       to: email, // list of receivers
-      subject: "OTP for Registration", // Subject line
+      subject: "OTP for Registration for Semamart", // Subject line
       text: `Your OTP is ${otp}`, // plain text body
     });
   
@@ -103,9 +104,9 @@ exports.login = async (req, res) => {
   
     // Send OTP to user's email
     let info = await transporter.sendMail({
-      from: '"Ankur" <ankursoni2974@gmail.com>', // sender address
+      from: '"Ankur" <${process.env.SENDER_EMAIL}>', // sender address
       to: email, // list of receivers
-      subject: "OTP for Registration", // Subject line
+      subject: "OTP for login in Semamart", // Subject line
       text: `Your OTP is ${otp}`, // plain text body
     });
   
