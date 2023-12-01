@@ -9,8 +9,10 @@ const Supplierschema = new mongoose.Schema({
     city: { type: String, required: true },
     state: { type: String, required: true },
     contactNumber: { type: String, required: true },
+    gstNumber: {type: String, required: true},
+    productType: {type: String, required: true}
   });
 
-  const Supplier = mongoose.model('Product', ProductSchema);
+  const Supplier = mongoose.model('Suppliers', Supplierschema);
 
   module.exports = Supplier;
