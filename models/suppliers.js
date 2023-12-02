@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-// Product Schema
-const Supplierschema = new mongoose.Schema({
+// Supplier Schema
+const SupplierSchema = new mongoose.Schema({
     name: { type: String, required: true },
     companyName: { type: String, required: true },
     type: { type: String, required: true },
@@ -13,6 +13,6 @@ const Supplierschema = new mongoose.Schema({
     productType: {type: String, required: true}
   });
 
-  const Supplier = mongoose.model('Suppliers', Supplierschema);
+  const Supplier = mongoose.model('Supplier', SupplierSchema);
 
   module.exports = Supplier;

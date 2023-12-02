@@ -1,9 +1,12 @@
+const SupplierTypes = require('../models/supplierTypes');
 const Supplier = require('../models/suppliers');
-const Suppliers = require('../models/suppliers');
 
+// @desc    Fetch all suppliers
+// @route   GET /api/suppliers
+// @access  Public
 exports.getSuppliers = async(req,res) => {
     try{
-        const allSuppliers = await Suppliers.find({});
+        const allSuppliers = await Supplier.find({});
         res.header("Access-Control-Allow-Origin", "*");
         res.status(200)
         res.json(allSuppliers)
@@ -27,7 +30,20 @@ exports.addSuppliers = async(req, res) => {
         })
 
         const saveSupplier = await newSupplier.save();
+        console.log(saveSupplier);
         res.status(200).send(saveSupplier);
+    }
+    catch (err) {
+        res.status(500).send(err);
+    };
+}
+
+exports.getAllSupplierTypes = async(req,res) => {
+    try{
+        const allSupplierTypes = await SupplierTypes.find({})
+        res.header("Access-Control-Allow-Origin", "*");
+        res.status(200);
+        res.json(allSupplierTypes)
     }
     catch (err) {
         res.status(500).send(err);
