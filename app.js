@@ -5,12 +5,25 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('./db');
 
+var app = express();
+
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   //credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
 var userRouter = require('./routes/userRoutes');
 var productRouter = require('./routes/productRoutes');
 var inventoryRouter = require('./routes/inventoryRoutes');
 var supplierRouter = require('./routes/suppliersRoutes');
 
-var app = express();
+
+
+//app.use(cors(corsOptions))
+
+app.use(cors({origin: true }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

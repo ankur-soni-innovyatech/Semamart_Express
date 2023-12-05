@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const ProductTypes = require('../models/productTypes');
 
 exports.getProducts = async (req, res) => {
   try {
@@ -50,3 +51,27 @@ exports.addProduct = async (req, res) => {
     catch (err) {
       res.status(500).send(err);
     }};
+
+    exports.getProductTypes = async(req, res) => {
+      try{
+        const productTypes = await ProductTypes.find({})
+        res.header("Access-Control-Allow-Origin", "*");
+        res.status(200)
+        res.json(productTypes)
+      }catch(err){
+        res.status(500).send(err);
+      }
+    }
+
+    exports.addNewProductType = async(req,res) => {
+      try{
+        const newProductType = new ProductTypes({
+          type: req.body.productType || ""
+        })
+
+        const savedProductType = await newProductType.save();
+        res.status(200).send(savedProductType)
+      }catch(err){
+        res.status(500).send(err);
+      }
+    }

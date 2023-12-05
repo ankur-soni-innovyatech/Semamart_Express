@@ -17,10 +17,11 @@ exports.getSuppliers = async(req,res) => {
 
 exports.addSuppliers = async(req, res) => {
     try{
+        console.log("BODY: " + req.body)
         const newSupplier = new Supplier({
             name: req.body.name,
             companyName: req.body.companyName,
-            type: req.body.type,
+            supplierType: req.body.supplierType,
             email: req.body.email,
             city: req.body.city,
             state: req.body.state,
@@ -31,17 +32,18 @@ exports.addSuppliers = async(req, res) => {
 
         const saveSupplier = await newSupplier.save();
         console.log(saveSupplier);
+        res.header("Access-Control-Allow-Origin", "*");
         res.status(200).send(saveSupplier);
     }
     catch (err) {
         res.status(500).send(err);
+        console.log("ERROR: " + err)
     };
 }
 
 exports.getAllSupplierTypes = async(req,res) => {
     try{
         const allSupplierTypes = await SupplierTypes.find({})
-        res.header("Access-Control-Allow-Origin", "*");
         res.status(200);
         res.json(allSupplierTypes)
     }
@@ -49,3 +51,16 @@ exports.getAllSupplierTypes = async(req,res) => {
         res.status(500).send(err);
     };
 }
+
+exports.addNewSupplierType = async(req,res) => {
+    try{
+      const newSupplierType = new SupplierTypes({
+        type: req.body.supplierType || ""
+      })
+
+      const savedSupplierType = await newSupplierType.save();
+      res.status(200).send(savedSupplierType)
+    }catch(err){
+      res.status(500).send(err);
+    }
+  }

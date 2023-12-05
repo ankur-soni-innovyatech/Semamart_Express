@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const SupplierSchema = new mongoose.Schema({
     name: { type: String, required: true },
     companyName: { type: String, required: true },
-    type: { type: String, required: true },
+    supplierType: { type: String, required: true },
     email: { type: String, required: true },
     city: { type: String, required: true },
     state: { type: String, required: true },
