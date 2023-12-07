@@ -27,28 +27,31 @@ exports.getProducts = async (req, res) => {
 
 exports.addProduct = async (req, res) => {
   try {
-  const newProduct = new Product({
-      brand: req.body.brand || "",
-      category: req.body.category || "",
-      name: req.body.name || "",
-      modelNumber: req.body.modelNumber || "",
-      oem: req.body.oem || "",
-      hsnCode: req.body.hsnCode || "",
-      salesRate: req.body.salesRate || "",
-      gst: req.body.gst || "",
-      unitRateIncGST: req.body.unitRateIncGST || "",
-      unitRateExcGST: req.body.unitRateExcGST || "",
-      discountStartDate: req.body.discountStartDate,
-      discountEndDate: req.body.discountEndDate,
-      discountType: req.body.discountType || "",
-      discountValue: req.body.discountValue,
-      discountStatus: req.body.discountStatus || ""
-    });
+    const newProduct = new Product({
+        brand: req.body.brand || "",
+        category: req.body.category || "",
+        name: req.body.name || "",
+        modelNumber: req.body.modelNumber || "",
+        oem: req.body.oem || "",
+        hsnCode: req.body.hsnCode || "",
+        unitRate: req.body.unitRate || "",
+        manufacturer: req.body.manufacturer || "",
+        gst: req.body.gst || "",
+        unitRateIncGST: req.body.unitRateIncGST || "",
+        unitRateExcGST: req.body.unitRateExcGST || "",
+        discountStartDate: req.body.discountStartDate,
+        discountEndDate: req.body.discountEndDate,
+        discountType: req.body.discountType || "",
+        discountValue: req.body.discountValue,
+        discountStatus: req.body.discountStatus || ""
+      });
   
       const savedProduct = await newProduct.save();
+      res.header("Access-Control-Allow-Origin", "*");
       res.status(200).send(savedProduct);
     } 
     catch (err) {
+      console.log("ERROR: " + err)
       res.status(500).send(err);
     }};
 
