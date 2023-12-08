@@ -87,7 +87,7 @@ exports.login = async (req, res) => {
   // Your existing login code here...
   try{
     const {email} = req.body; // Removed 'name'
-
+    console.log("EMAIL: " + email);
     // Find user
     const user = await User.findOne({email});
   
@@ -109,7 +109,7 @@ exports.login = async (req, res) => {
       subject: "OTP for login in Semamart", // Subject line
       text: `Your OTP is ${otp}`, // plain text body
     });
-  
+    
     res.json({message: 'OTP sent to email'});
   }
   catch(err){
@@ -121,6 +121,9 @@ exports.verifyOtpLogin = async (req, res) => {
   // Your existing verify-otp-register code here...
   try{
     const {email, otp} = req.body;
+
+    // Find user
+    const user = await User.findOne({email});
 
     // Check if OTP exists
     if (!otps[email]) {
@@ -142,8 +145,16 @@ exports.verifyOtpLogin = async (req, res) => {
     // If everything is okay, user is logged in
     // Remove OTP from temporary storage
     delete otps[email];
-  
-    res.json({message: 'User logged in successfully'});
+
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      /* isAdmin: user.isAdmin,
+      phoneNumber:user.phoneNumber,
+      token: generateToken(user._id), */
+      message: 'User logged in successfully'
+  })
   }
   catch(err){
     res.status(500).send(err);
