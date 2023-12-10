@@ -64,3 +64,21 @@ exports.addNewSupplierType = async(req,res) => {
       res.status(500).send(err);
     }
   }
+
+  exports.deleteSupplier = async (req, res) => {
+    try {
+      const supplierId = req.params.id; // assuming you're sending id as a URL parameter
+  
+      // find the product by id and delete it
+      const deletedSupplier = await Supplier.findByIdAndDelete(supplierId);
+  
+      if (!deletedSupplier) {
+        return res.status(404).send({ message: 'No supplier found with this id' });
+      }
+  
+      res.status(200).send({ message: 'Supplier deleted successfully', product: deletedSupplier });
+    } 
+    catch (err) {
+      res.status(500).send(err);
+    }
+  };
