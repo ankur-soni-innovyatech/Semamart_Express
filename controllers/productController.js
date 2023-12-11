@@ -78,3 +78,21 @@ exports.addProduct = async (req, res) => {
         res.status(500).send(err);
       }
     }
+
+    exports.deleteProduct = async (req, res) => {
+      try {
+        const productId = req.params.id; // assuming you're sending id as a URL parameter
+    
+        // find the product by id and delete it
+        const deletedProduct = await Product.findByIdAndDelete(productId);
+    
+        if (!deletedProduct) {
+          return res.status(404).send({ message: 'No product found with this id' });
+        }
+    
+        res.status(200).send({ message: 'Product deleted successfully', product: deletedProduct });
+      } 
+      catch (err) {
+        res.status(500).send(err);
+      }
+    };
