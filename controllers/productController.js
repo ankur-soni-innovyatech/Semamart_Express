@@ -30,7 +30,7 @@ exports.addProduct = async (req, res) => {
     const newProduct = new Product({
         brand: req.body.brand || "",
         category: req.body.category || "",
-        name: req.body.name || "",
+        productName: req.body.productName || "",
         modelNumber: req.body.modelNumber || "",
         oem: req.body.oem || "",
         hsnCode: req.body.hsnCode || "",

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
     brand: { type: String, required: true },
     category: { type: String, required: true },
-    name: { type: String, required: true },
+    productName: { type: String, required: true },
     modelNumber: { type: String, required: true },
     oem: { type: String, required: true },
     hsnCode: { type: String, required: true },
