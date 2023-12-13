@@ -1,29 +1,46 @@
 const Product = require('../models/product');
 const ProductTypes = require('../models/productTypes');
 
+// @desc    Fetch all products
+// @route   GET /api/products
+// @access  Private
 exports.getProducts = async (req, res) => {
-  try {
-  const { brand, category, hsnCode } = req.query;
+  try{
+        const keyword = req.query.keyword ? {
+          name: {
+              $regex: req.query.keyword,
+              $options: 'i' //case-insensitive
+          }
+        } : {}
+  
+        console.log("Brand from query:" + req.query.brand)
+        console.log("Category from query: " + req.query.category)
+  
+        let products, count;
+  
+        if(!req.query.brand && !req.query.category){
+          products = await Product.find({})
+          count = await Product.countDocuments({})
+        }else{
+          let _brand = req.query.brand.charAt(0).toUpperCase() + req.query.brand.slice(1);
+          let _category = req.query.category.charAt(0).toUpperCase() + req.query.category.slice(1);
+          
+          count = await Product.countDocuments({ "brand": req.query.brand, "category": req.query.category })
+          products = await Product.find({"brand": req.query.brand.replace(/['"]+/g, ''),
+                                        "category": req.query.category.replace(/['"]+/g, '')})
+        }
+  
+        console.log("Count: " + count + " Products: " + products)
+  
+        res.header("Access-Control-Allow-Origin", "*");
+        res.status(200)
+        res.json(products)
+      }
+      catch(err){
+        res.status(500).send(err);
+      }
 
-    /* const products = await Product.find({
-      brand: brand,
-      category: category,
-      hsnCode: hsnCode
-    });
-
-    if (!products || !products.length ) {
-      return res.status(404).send({ message: 'No products found' });
-    }
-    res.status(200).send(products); */
-
-    const products = await Product.find({})
-    res.header("Access-Control-Allow-Origin", "*");
-    res.status(200)
-    res.json(products)
-  } 
-  catch (err) {
-    res.status(500).send(err);
-  }};
+};
 
 exports.addProduct = async (req, res) => {
   try {
@@ -66,6 +83,9 @@ exports.addProduct = async (req, res) => {
       }
     }
 
+    // @desc    Add new product type
+    // @route   POST /api/add-new-product-type
+    // @access  Public
     exports.addNewProductType = async(req,res) => {
       try{
         const newProductType = new ProductTypes({
@@ -79,6 +99,9 @@ exports.addProduct = async (req, res) => {
       }
     }
 
+    // @desc    Delete existing product
+    // @route   POST /api/products/{:id}
+    // @access  Public
     exports.deleteProduct = async (req, res) => {
       try {
         const productId = req.params.id; // assuming you're sending id as a URL parameter
@@ -96,3 +119,44 @@ exports.addProduct = async (req, res) => {
         res.status(500).send(err);
       }
     };
+
+    // @desc    Get products per filter
+    // @route   GET /api/products/{:id}
+    // @access  Public
+    /* exports.filterProducts = async(req,res) => {
+      try{
+        const keyword = req.query.keyword ? {
+          name: {
+              $regex: req.query.keyword,
+              $options: 'i' //case-insensitive
+          }
+        } : {}
+  
+        console.log("Brand from query:" + req.query.brand)
+        console.log("Category from query: " + req.query.category)
+  
+        let products, count;
+  
+        if(!req.query.brand && !req.query.category){
+          products = await Product.find({})
+          count = await Product.countDocuments({})
+        }else{
+          let _brand = req.query.brand.charAt(0).toUpperCase() + req.query.brand.slice(1);
+          let _category = req.query.category.charAt(0).toUpperCase() + req.query.category.slice(1);
+          
+          count = await Product.countDocuments({ "brand": req.query.brand, "category": req.query.category })
+          products = await Product.find({"brand": req.query.brand.replace(/['"]+/g, ''),
+                                        "category": req.query.category.replace(/['"]+/g, '')})
+        }
+  
+        console.log("Count: " + count + " Products: " + products)
+  
+        res.header("Access-Control-Allow-Origin", "*");
+        res.status(200)
+        res.json(products)
+      }
+      catch(err){
+        res.status(500).send(err);
+      }
+
+    } */

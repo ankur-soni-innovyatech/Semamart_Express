@@ -15,6 +15,9 @@ exports.getSuppliers = async(req,res) => {
     }
 }
 
+// @desc    Add new supplier
+// @route   POST /api/add-supplier
+// @access  Private
 exports.addSuppliers = async(req, res) => {
     try{
         console.log("BODY: " + req.body)
@@ -41,6 +44,9 @@ exports.addSuppliers = async(req, res) => {
     };
 }
 
+// @desc    Get all supplier types
+// @route   GET /api/supplier-types
+// @access  Private
 exports.getAllSupplierTypes = async(req,res) => {
     try{
         const allSupplierTypes = await SupplierTypes.find({})
@@ -52,6 +58,9 @@ exports.getAllSupplierTypes = async(req,res) => {
     };
 }
 
+// @desc    Add new supplier type
+// @route   POST /api/add-new-supplier-type
+// @access  Private
 exports.addNewSupplierType = async(req,res) => {
     try{
       const newSupplierType = new SupplierTypes({
@@ -65,6 +74,9 @@ exports.addNewSupplierType = async(req,res) => {
     }
   }
 
+// @desc    Delete all supplier types
+// @route   DELETE /api/delete-supplier/{:id}
+// @access  Private  
   exports.deleteSupplier = async (req, res) => {
     try {
       const supplierId = req.params.id; // assuming you're sending id as a URL parameter
