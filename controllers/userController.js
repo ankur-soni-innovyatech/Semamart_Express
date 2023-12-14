@@ -2,6 +2,8 @@ const User = require('../models/user');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 var transporter = require('../mailSender');
+const generateToken = require('../utils/generateToken.js')
+const jwt = require('jsonwebtoken')
 
 // let transporter = nodemailer.createTransport({
 //   service: 'gmail',
@@ -151,12 +153,15 @@ exports.verifyOtpLogin = async (req, res) => {
       name: user.name,
       email: user.email,
       /* isAdmin: user.isAdmin,
-      phoneNumber:user.phoneNumber,
-      token: generateToken(user._id), */
+      phoneNumber:user.phoneNumber, */
+      //token: generateToken(user._id),
+      token: jwt.sign(user._id.toJSON(), "jwt123"),
       message: 'User logged in successfully'
   })
   }
   catch(err){
+    console.log("err: " + err);
     res.status(500).send(err);
+    
   }
   };
