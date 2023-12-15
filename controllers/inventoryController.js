@@ -19,12 +19,13 @@ exports.getInventory = async (req, res) => {
     try {
     const newInventory = new Inventory({
         name: req.body.name || "",
-        modelNo: req.body.modelNo || "",
+        batchNumber: req.body.batchNumber || "",
         oem: req.body.oem || "",
-        specification: req.body.specification || "",
+        hsnCode: req.body.hsnCode || "", 
         totalQuantity: req.body.totalQuantity || "",
+        /* specification: req.body.specification || "",
         totalSoldQuantity: req.body.totalSoldQuantity || "",
-        totalAvailableQuantity: req.body.totalQuantity - req.body.totalSoldQuantity
+        totalAvailableQuantity: req.body.totalQuantity - req.body.totalSoldQuantity */
       });
     
         const savedInventory = await newInventory.save();
