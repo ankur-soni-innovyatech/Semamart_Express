@@ -52,6 +52,14 @@ exports.deleteInventory = async (req, res) => {
       .send({
         message: "Inventory deleted successfully",
         product: deletedInventory,
+        name: req.body.name || "",
+        batchNumber: req.body.batchNumber || "",
+        oem: req.body.oem || "",
+        hsnCode: req.body.hsnCode || "", 
+        totalQuantity: req.body.totalQuantity || "",
+        /* specification: req.body.specification || "",
+        totalSoldQuantity: req.body.totalSoldQuantity || "",
+        totalAvailableQuantity: req.body.totalQuantity - req.body.totalSoldQuantity */
       });
   } catch (err) {
     res.status(500).send(err);
