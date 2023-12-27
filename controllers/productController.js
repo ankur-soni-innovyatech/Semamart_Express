@@ -48,19 +48,13 @@ exports.addProduct = async (req, res) => {
         brand: req.body.brand || "",
         category: req.body.category || "",
         productName: req.body.productName || "",
-        batchNumber: req.body.batchNumber || "",
+        modelNumber: req.body.modelNumber || "",
         oem: req.body.oem || "",
         hsnCode: req.body.hsnCode || "",
         unitRate: req.body.unitRate || "",
         manufacturer: req.body.manufacturer || "",
-        gst: req.body.gst || ""
-        /* unitRateIncGST: req.body.unitRateIncGST || "",
-        unitRateExcGST: req.body.unitRateExcGST || "",
-        discountStartDate: req.body.discountStartDate,
-        discountEndDate: req.body.discountEndDate,
-        discountType: req.body.discountType || "",
-        discountValue: req.body.discountValue,
-        discountStatus: req.body.discountStatus || "" */
+        gst: req.body.gst || "",
+        equipmentType: req.body.equipmentType || ""
       });
   
       const savedProduct = await newProduct.save();
