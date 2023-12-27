@@ -23,6 +23,7 @@ exports.getInventory = async (req, res) => {
         oem: req.body.oem || "",
         hsnCode: req.body.hsnCode || "", 
         totalQuantity: req.body.totalQuantity || "",
+        totalConsumedQuantity: req.body.totalConsumedQuantity
         /* specification: req.body.specification || "",
         totalSoldQuantity: req.body.totalSoldQuantity || "",
         totalAvailableQuantity: req.body.totalQuantity - req.body.totalSoldQuantity */

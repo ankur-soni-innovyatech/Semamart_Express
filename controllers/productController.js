@@ -30,20 +30,14 @@ exports.addProduct = async (req, res) => {
     const newProduct = new Product({
         brand: req.body.brand || "",
         category: req.body.category || "",
-        name: req.body.name || "",
+        productName: req.body.productName || "",
         modelNumber: req.body.modelNumber || "",
         oem: req.body.oem || "",
         hsnCode: req.body.hsnCode || "",
         unitRate: req.body.unitRate || "",
         manufacturer: req.body.manufacturer || "",
         gst: req.body.gst || "",
-        unitRateIncGST: req.body.unitRateIncGST || "",
-        unitRateExcGST: req.body.unitRateExcGST || "",
-        discountStartDate: req.body.discountStartDate,
-        discountEndDate: req.body.discountEndDate,
-        discountType: req.body.discountType || "",
-        discountValue: req.body.discountValue,
-        discountStatus: req.body.discountStatus || ""
+        equipmentType: req.body.equipmentType || ""
       });
   
       const savedProduct = await newProduct.save();
