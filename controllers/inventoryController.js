@@ -21,9 +21,12 @@ exports.addInventory = async (req, res) => {
       batchNumber: req.body.batchNumber || "",
       oem: req.body.oem || "",
       hsnCode: req.body.hsnCode || "",
-      /* specification: req.body.specification || "", */
+      equipmentType: req.body.equipmentType || "",
       totalQuantity: req.body.totalQuantity || "",
-      /* totalSoldQuantity: req.body.totalSoldQuantity || "",
+      totalConsumedQuantity: 0
+      /*
+      totalConsumedQuantity: req.body.totalConsumedQuantity || "",
+       totalSoldQuantity: req.body.totalSoldQuantity || "",
       totalAvailableQuantity:
         req.body.totalQuantity - req.body.totalSoldQuantity, */
     });
