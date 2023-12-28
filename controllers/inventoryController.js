@@ -70,3 +70,40 @@ exports.deleteInventory = async (req, res) => {
     res.status(500).send(err);
   }
 };
+
+exports.updateInventory = async (req, res) => {
+  try {
+    const inventoryId = req.params.id;
+    const consumedQuantity = req.body.consumedQuantity;
+
+    // find the inventory item by id and update
+    const inventory = await Inventory.findById(inventoryId);
+    if (!inventory){
+      return res
+        .status(404)
+        .send({ message: "No inventory found with this id" });
+    }
+    if ((inventory.totalQuantity - inventory.totalConsumedQuantity) >= consumedQuantity){
+      const updatedInventory = await Inventory.findOneAndUpdate(
+        { _id: inventoryId }, 
+        { $inc: { totalConsumedQuantity: consumedQuantity } },
+        { new: true } // this option returns the updated document
+      );
+      res
+      .status(200)
+      .send({
+        message: "Inventory updated successfully",
+        product: updatedInventory
+      });
+    } else {
+      res
+      .status(400)
+      .send({
+        message: "Not enough quantity in inventory for this operation",
+      });
+    }
+    
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};

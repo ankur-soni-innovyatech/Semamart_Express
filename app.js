@@ -20,7 +20,6 @@ var inventoryRouter = require('./routes/inventoryRoutes');
 var supplierRouter = require('./routes/suppliersRoutes');
 var internalOrdersRouter = require('./routes/internalOrdersRoutes');
 
-
 //app.use(cors(corsOptions))
 
 app.use(cors({origin: true }));
@@ -40,6 +39,7 @@ app.use('/api/', productRouter);
 app.use('/api/', inventoryRouter);
 app.use('/api/', supplierRouter);
 app.use('/api/', internalOrdersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
